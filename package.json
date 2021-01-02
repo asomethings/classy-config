@@ -1,0 +1,75 @@
+{
+  "name": "classy-config",
+  "version": "0.0.0",
+  "description": "Class based configuration management",
+  "tags": [
+    "config",
+    "configuration",
+    "classy-config",
+    "node-config",
+    "class-config",
+    "config-validation",
+    "environment",
+    "env"
+  ],
+  "main": "./dist/index.js",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "test": "ava",
+    "test:coverage": "nyc ava",
+    "ts:check": "tsc --project ./tsconfig.json --noEmit",
+    "lint:check": "eslint --max-warnings 0 --ext .ts ."
+  },
+  "author": "asomethings <asomethings@kakao.com> (http://asomethings.com/)",
+  "license": "MIT",
+  "dependencies": {
+    "glob": "^7.1.6"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "@ava/typescript": "^1.1.1",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/glob": "^7.1.3",
+    "@types/node": "^14.14.17",
+    "@types/webpack-env": "^1.16.0",
+    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "@typescript-eslint/parser": "^4.11.1",
+    "ava": "^3.15.0",
+    "class-transformer": "^0.3.1",
+    "class-validator": "^0.12.2",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.3.0",
+    "husky": "^4.3.6",
+    "nyc": "^15.1.0",
+    "prettier": "^2.2.1",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
+  "peerDependencies": {
+    "class-transformer": "^0.3.1",
+    "class-validator": "^0.12.2",
+    "reflect-metadata": "^0.1.13"
+  },
+  "peerDependenciesMeta": {
+    "class-transformer": {
+      "optional": true
+    },
+    "class-validator": {
+      "optional": false
+    }
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  }
+}
