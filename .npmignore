@@ -1,0 +1,13 @@
+tests
+node_modules
+tsconfig.json
+tsconfig.spec.json
+.vscode
+.prettierrc
+.huskyrc
+.gitignore
+.eslintrc.json
+.commitlintrc.json
+.nyc_output
+.github
+src
