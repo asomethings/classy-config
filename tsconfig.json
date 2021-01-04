@@ -10,7 +10,8 @@
     "experimentalDecorators": true,
     "outDir": "./dist",
     "baseUrl": ".",
-    "sourceMap": true
+    "sourceMap": true,
+    "declaration": true
   },
   "exclude": ["node_modules", "dist"]
 }
