@@ -1,6 +1,6 @@
 {
   "name": "classy-config",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Class based configuration management",
   "tags": [
     "config",
@@ -15,6 +15,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "prepublishOnly": "tsc -p ./tsconfig.prod.json",
     "test": "ava",
     "test:coverage": "nyc ava --use-spawn-wrap",
     "test:codecov": "nyc report --reporter=text-lcov > coverage.lcov",

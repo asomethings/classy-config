@@ -1,7 +1,7 @@
 tests
 node_modules
 tsconfig.json
-tsconfig.spec.json
+tsconfig.prod.json
 .vscode
 .prettierrc
 .huskyrc
@@ -11,3 +11,5 @@ tsconfig.spec.json
 .nyc_output
 .github
 src
+renovate.json
+pnpm-lock.yaml

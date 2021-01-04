@@ -1,4 +1,5 @@
 # classy-config
+[![codecov](https://codecov.io/gh/asomethings/classy-config/branch/main/graph/badge.svg?token=P005JbPkOM)](https://codecov.io/gh/asomethings/classy-config)
 
 Better configuration with power of classes and decorators
 
