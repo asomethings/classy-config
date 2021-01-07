@@ -16,7 +16,7 @@ devDependencies:
   eslint-config-prettier: 7.1.0_eslint@7.17.0
   eslint-plugin-node: 11.1.0_eslint@7.17.0
   eslint-plugin-prettier: 3.3.1_69979e61f6e4e06807b16d761b81a74d
-  husky: 4.3.6
+  husky: 4.3.7
   nyc: 15.1.0
   prettier: 2.2.1
   reflect-metadata: 0.1.13
@@ -1722,14 +1722,14 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==
-  /find-versions/3.2.0:
+  /find-versions/4.0.0:
     dependencies:
-      semver-regex: 2.0.0
+      semver-regex: 3.1.2
     dev: true
     engines:
-      node: '>=6'
+      node: '>=10'
     resolution:
-      integrity: sha512-P8WRou2S+oe222TOCHitLy8zj+SIsVJh52VP4lvXkaFVnOFFdoWv1H1Jjvel1aI6NCFOAaeAVm8qrI0odiLcww==
+      integrity: sha512-wgpWy002tA+wgmO27buH/9KzyEOQnKsG/R0yrcjPT9BOFm0zRBVQbZ95nRGXWMywS8YR5knRbpohio0bcJABxQ==
   /flat-cache/3.0.4:
     dependencies:
       flatted: 3.1.0
@@ -1991,15 +1991,15 @@ packages:
     dev: true
     resolution:
       integrity: sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
-  /husky/4.3.6:
+  /husky/4.3.7:
     dependencies:
       chalk: 4.1.0
       ci-info: 2.0.0
       compare-versions: 3.6.0
       cosmiconfig: 7.0.0
-      find-versions: 3.2.0
+      find-versions: 4.0.0
       opencollective-postinstall: 2.0.3
-      pkg-dir: 4.2.0
+      pkg-dir: 5.0.0
       please-upgrade-node: 3.2.0
       slash: 3.0.0
       which-pm-runs: 1.0.0
@@ -2009,7 +2009,7 @@ packages:
     hasBin: true
     requiresBuild: true
     resolution:
-      integrity: sha512-o6UjVI8xtlWRL5395iWq9LKDyp/9TE7XMOTvIpEVzW638UcGxTmV5cfel6fsk/jbZSTlvfGVJf2svFtybcIZag==
+      integrity: sha512-0fQlcCDq/xypoyYSJvEuzbDPHFf8ZF9IXKJxlrnvxABTSzK1VPT2RKYQKrcgJ+YD39swgoB6sbzywUqFxUiqjw==
   /ieee754/1.2.1:
     dev: true
     resolution:
@@ -2983,6 +2983,14 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==
+  /pkg-dir/5.0.0:
+    dependencies:
+      find-up: 5.0.0
+    dev: true
+    engines:
+      node: '>=10'
+    resolution:
+      integrity: sha512-NPE8TDbzl/3YQYY7CSS228s3g2ollTFnc+Qi3tqmqJp9Vg2ovUpixcJEo2HJScN2Ez+kEaal6y70c0ehqJBJeA==
   /please-upgrade-node/3.2.0:
     dependencies:
       semver-compare: 1.0.0
@@ -3290,12 +3298,12 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-GX0Ix/CJcHyB8c4ykpHGIAvLyOwOobtM/8d+TQkAd81/bEjgPHrfba41Vpesr7jX/t8Uh+R3EX9eAS5be+jQYg==
-  /semver-regex/2.0.0:
+  /semver-regex/3.1.2:
     dev: true
     engines:
-      node: '>=6'
+      node: '>=8'
     resolution:
-      integrity: sha512-mUdIBBvdn0PLOeP3TEkMH7HHeUP3GjsXCwKarjv/kGmUFOYg1VqEemKhoQpWMu6X2I8kHeuVdGibLGkVK+/5Qw==
+      integrity: sha512-bXWyL6EAKOJa81XG1OZ/Yyuq+oT0b2YLlxx7c+mrdYPaPbnj6WgVULXhinMIeZGufuUBu/eVRqXEhiv4imfwxA==
   /semver/5.7.1:
     dev: true
     hasBin: true
@@ -4013,7 +4021,7 @@ specifiers:
   eslint-plugin-node: 11.1.0
   eslint-plugin-prettier: 3.3.1
   glob: ^7.1.6
-  husky: 4.3.6
+  husky: 4.3.7
   nyc: 15.1.0
   prettier: 2.2.1
   reflect-metadata: 0.1.13
