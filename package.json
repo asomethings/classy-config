@@ -23,9 +23,6 @@
   },
   "author": "asomethings <asomethings@kakao.com> (http://asomethings.com/)",
   "license": "MIT",
-  "dependencies": {
-    "glob": "^7.1.6"
-  },
   "engines": {
     "node": ">=12"
   },
