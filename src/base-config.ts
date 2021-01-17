@@ -5,11 +5,16 @@ import { BaseConfigOptions } from './interfaces'
 export abstract class BaseConfig {
   public static readonly __configs: Record<string, any> = {}
 
-  public static add<T>(this: Class<T>, config: PartialDeep<T>, env: string): void {
-    ;(this as any).__configs[env] = config
+  public static add<T>(
+    this: Class<T> & typeof BaseConfig,
+    config: PartialDeep<T>,
+    env: string,
+  ): void {
+    this.__configs[env] = config
   }
 
-  public static load<T extends BaseConfig>(
+  public static load<T>(
+    this: Class<T> & typeof BaseConfig,
     options: BaseConfigOptions = { env: process.env.NODE_ENV },
   ): T {
     const environment = options.env ?? process.env.NODE_ENV
