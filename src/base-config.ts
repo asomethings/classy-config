@@ -29,10 +29,6 @@ export abstract class BaseConfig {
 
     const clsConfig = this.transformToClass(config, options)
 
-    if (!options?.validate) {
-      return clsConfig
-    }
-
     return this.validateConfig(clsConfig, options)
   }
 
@@ -53,6 +49,7 @@ export abstract class BaseConfig {
     config: T,
     options?: Pick<BaseConfigOptions, 'validate' | 'validationOptions'>,
   ): T {
+    console.log(options)
     if (!options?.validate) {
       return config
     }
