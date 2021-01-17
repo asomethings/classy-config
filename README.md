@@ -1,4 +1,5 @@
 # classy-config
+
 [![codecov](https://codecov.io/gh/asomethings/classy-config/branch/main/graph/badge.svg?token=P005JbPkOM)](https://codecov.io/gh/asomethings/classy-config)
 
 Better configuration with power of classes and decorators
@@ -41,6 +42,7 @@ const loadingWithContext = ClassyConfig.load(require.context('.', true, /\.confi
 class type and glob string can be passed with an array
 
 You can pass env to override picking up `process.env.NODE_ENV`
+
 ```typescript
 import { ClassyConfig } from 'classy-config'
 
@@ -48,7 +50,9 @@ ClassyConfig.load(MainConfig, { env: 'new-env' })
 ```
 
 ## Creating configuration
+
 If only one class without name picked up, it will create a **class instance**
+
 ```typescript
 import { ClassyConfig } from 'classy-config'
 
@@ -59,7 +63,7 @@ export class MainConfig {
   secretKey: string
 }
 
-const loadedConfig = ClassyConfig.load(MainConfig);
+const loadedConfig = ClassyConfig.load(MainConfig)
 console.log(loadedConfig)
 /*
 MainConfig {
@@ -69,6 +73,7 @@ MainConfig {
 ```
 
 If multiple classes is passed it will create an object
+
 ```typescript
 import { ClassyConfig } from 'classy-config'
 
@@ -86,7 +91,7 @@ export class ConfigTwo {
   name: string
 }
 
-const loadedConfig = ClassyConfig.load([ConfigOne, ConfigTwo]);
+const loadedConfig = ClassyConfig.load([ConfigOne, ConfigTwo])
 console.log(loadedConfig)
 /*
 {
@@ -97,6 +102,7 @@ console.log(loadedConfig)
 ```
 
 If multiple classes is passed with names it will create an object with key as name and value as class instance
+
 ```typescript
 import { ClassyConfig } from 'classy-config'
 
@@ -114,7 +120,7 @@ export class ConfigTwo {
   name: string
 }
 
-const loadedConfig = ClassyConfig.load([ConfigOne, ConfigTwo]);
+const loadedConfig = ClassyConfig.load([ConfigOne, ConfigTwo])
 console.log(loadedConfig)
 /*
 {
@@ -125,6 +131,7 @@ console.log(loadedConfig)
 ```
 
 ## Transforming
+
 After default values are initiated, transform will occur.
 
 Enable transform with `transform: true` while loading configuration. If options are needed then pass `transformOptions` with `transform: true`
@@ -140,7 +147,7 @@ export class MainConfig {
   num: number
 }
 
-const loadedConfig = ClassyConfig.load(MainConfig, { transform: true });
+const loadedConfig = ClassyConfig.load(MainConfig, { transform: true })
 console.log(loadedConfig)
 /*
 MainConfig {
@@ -150,6 +157,7 @@ MainConfig {
 ```
 
 ## Validating
+
 After transformations are done, it will validate configuration files.
 
 Enable validation with `validate: true` while loading configuration. If options are needed then pass `validationOptions` with `validate: true`
@@ -168,6 +176,6 @@ export class MainConfig {
   num: number
 }
 
-const loadedConfig = ClassyConfig.load(MainConfig, { validate: true });
+const loadedConfig = ClassyConfig.load(MainConfig, { validate: true })
 // Throws ValidationErrors
 ```

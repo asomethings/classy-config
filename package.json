@@ -14,7 +14,6 @@
   ],
   "main": "./dist/index.js",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "prepublishOnly": "tsc -p ./tsconfig.prod.json",
     "test": "ava",
     "test:coverage": "nyc ava --use-spawn-wrap",
