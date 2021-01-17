@@ -2,7 +2,7 @@
 
 [![codecov](https://codecov.io/gh/asomethings/classy-config/branch/main/graph/badge.svg?token=P005JbPkOM)](https://codecov.io/gh/asomethings/classy-config)
 
-Better configuration with power of classes and decorators
+Better configuration with power of classes and typescript
 
 ## Installation
 
@@ -10,122 +10,67 @@ Better configuration with power of classes and decorators
 
    `pnpm add classy-config`
 
-2. Install `reflect-metadata`
-
-   `pnpm add reflect-metadata`
-
-3. Install `class-transformer` and `class-validator` (optional)
+2. Install `class-transformer` and `class-validator` (optional)
 
    `pnpm add class-transformer`
 
    `pnpm add class-validator`
 
+## Adding configuration
+
+### `BaseConfig.add`
+
+This adds configuration to config container
+
+```typescript
+import { BaseConfig } from 'classy-config'
+
+class Config extends BaseConfig {
+  secret: string
+}
+
+Config.add({ secret: 'this-is-secret' }, 'dev')
+// Adds configuration to container only for dev environment
+```
+
 ## Loading configuration
 
-### `ClassyConfig.load`
-
-This loads configuration from class, glob path, webpack context
+It returns a class instance if config was successfully loaded
 
 ```typescript
-import { ClassyConfig } from 'classy-config'
+import { BaseConfig } from 'classy-config'
 
-// Using class
-const loadingWithClass = ClassyConfig.load(MainConfig)
-
-// Using glob
-const loadingWithGlob = ClassyConfig.load('./config/*.config{.ts,.js}')
-
-// Using webpack context
-const loadingWithContext = ClassyConfig.load(require.context('.', true, /\.config\.ts$/))
-```
-
-class type and glob string can be passed with an array
-
-You can pass env to override picking up `process.env.NODE_ENV`
-
-```typescript
-import { ClassyConfig } from 'classy-config'
-
-ClassyConfig.load(MainConfig, { env: 'new-env' })
-```
-
-## Creating configuration
-
-If only one class without name picked up, it will create a **class instance**
-
-```typescript
-import { ClassyConfig } from 'classy-config'
-
-@Config()
-export class MainConfig {
-  @Default(process.env.SECRET_KEY, { envs: ['prod', 'dev'] })
-  @Default('this-is-going-to-be-secret')
-  secretKey: string
+class Config extends BaseConfig {
+  secret: string
 }
 
-const loadedConfig = ClassyConfig.load(MainConfig)
-console.log(loadedConfig)
+Config.add({ secret: 'this-is-secret' }, 'dev')
+
+const cfg = ClassyConfig.load()
+console.log(cfg)
 /*
-MainConfig {
-  secretKey: 'this-is-going-to-be-secret'
+Config {
+  secretKey: 'this-is-secret'
 }
 */
 ```
 
-If multiple classes is passed it will create an object
+You can specify environment for loading config
 
 ```typescript
-import { ClassyConfig } from 'classy-config'
+import { BaseConfig } from 'classy-config'
 
-@Config()
-export class ConfigOne {
-  @Default(process.env.SECRET_KEY, { envs: ['prod', 'dev'] })
-  @Default('this-is-going-to-be-secret')
-  secretKey: string
+class Config extends BaseConfig {
+  secret: string
 }
 
-@Config()
-export class ConfigTwo {
-  @Default(process.env.NAME, { envs: ['prod', 'dev'] })
-  @Default('foo')
-  name: string
-}
+Config.add({ secret: 'this-is-secret' }, 'dev')
 
-const loadedConfig = ClassyConfig.load([ConfigOne, ConfigTwo])
-console.log(loadedConfig)
+const cfg = Config.load({ env: 'dev' })
+console.log(cfg)
 /*
-{
-  secretKey: 'this-is-going-to-be-secret',
-  name: 'foo'
-}
-*/
-```
-
-If multiple classes is passed with names it will create an object with key as name and value as class instance
-
-```typescript
-import { ClassyConfig } from 'classy-config'
-
-@Config('one')
-export class ConfigOne {
-  @Default(process.env.SECRET_KEY, { envs: ['prod', 'dev'] })
-  @Default('this-is-going-to-be-secret')
-  secretKey: string
-}
-
-@Config('two')
-export class ConfigTwo {
-  @Default(process.env.NAME, { envs: ['prod', 'dev'] })
-  @Default('foo')
-  name: string
-}
-
-const loadedConfig = ClassyConfig.load([ConfigOne, ConfigTwo])
-console.log(loadedConfig)
-/*
-{
-  one: [class ConfigOne],
-  two: [class ConfigTwo],
+Config {
+  secretKey: 'this-is-secret'
 }
 */
 ```
@@ -137,21 +82,22 @@ After default values are initiated, transform will occur.
 Enable transform with `transform: true` while loading configuration. If options are needed then pass `transformOptions` with `transform: true`
 
 ```typescript
-import { ClassyConfig } from 'classy-config'
+import 'reflect-metadata'
+import { BaseConfig } from 'classy-config'
 import { Type } from 'class-transformer'
 
-@Config()
-export class MainConfig {
-  @Default('1')
+class Config extends BaseConfig {
   @Type(() => Number)
-  num: number
+  port: number
 }
 
-const loadedConfig = ClassyConfig.load(MainConfig, { transform: true })
-console.log(loadedConfig)
+Config.add({ port: '9999' }, 'dev')
+
+const cfg = Config.load({ transform: true })
+console.log(cfg)
 /*
-MainConfig {
-  num: 1
+Config {
+  port: 9999
 }
 */
 ```
@@ -165,17 +111,17 @@ Enable validation with `validate: true` while loading configuration. If options 
 Currently, validation does not (yet) run in parallel.
 
 ```typescript
-import { ClassyConfig } from 'classy-config'
+import 'reflect-metadata'
+import { BaseConfig } from 'classy-config'
 import { Type } from 'class-transformer'
 
-@Config()
-export class MainConfig {
-  @Default('1')
+class Config extends BaseConfig {
   @IsNumber()
-  @Type(() => String)
-  num: number
+  port: number
 }
 
-const loadedConfig = ClassyConfig.load(MainConfig, { validate: true })
+Config.add({ port: '9999' }, 'dev')
+
+Config.load({ validate: true })
 // Throws ValidationErrors
 ```
