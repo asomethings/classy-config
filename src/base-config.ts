@@ -49,7 +49,6 @@ export abstract class BaseConfig {
     config: T,
     options?: Pick<BaseConfigOptions, 'validate' | 'validationOptions'>,
   ): T {
-    console.log(options)
     if (!options?.validate) {
       return config
     }
