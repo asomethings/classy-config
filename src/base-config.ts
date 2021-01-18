@@ -32,17 +32,16 @@ export abstract class BaseConfig {
     return this.validateConfig(clsConfig, options)
   }
 
-  private static transformToClass(
+  private static transformToClass<T>(
+    this: Class<T> & typeof BaseConfig,
     config: Record<string, any>,
     options?: Pick<BaseConfigOptions, 'transform' | 'transformOptions'>,
-  ) {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
-    const cls: any = this
+  ): T {
     if (!options?.transform) {
-      return Object.assign(new cls(), config)
+      return Object.assign(new this(), config)
     }
 
-    return this.transformer.plainToClass(cls, config, options?.transformOptions ?? {})
+    return this.transformer.plainToClass(this, config, options?.transformOptions ?? {})
   }
 
   private static validateConfig<T>(
