@@ -1,2 +1,1 @@
-export { ClassyConfigOptions } from './classy-config-options.interface'
-export { DefaultOptions } from './default-options.interface'
+export { BaseConfigOptions } from './base-config-options.interface'

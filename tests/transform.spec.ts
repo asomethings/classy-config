@@ -1,32 +1,32 @@
 import test from 'ava'
-import { Type } from 'class-transformer'
+import { Expose, Type } from 'class-transformer'
 import 'reflect-metadata'
-import { ClassyConfig, Config, Default } from '../src'
+import { BaseConfig } from '../src'
 
-test('transform with class-transformer', (t) => {
-  @Config()
-  class SimpleConfig {
-    @Default(1)
-    @Type(() => Boolean)
-    decorated: boolean
-  }
+class Config extends BaseConfig {
+  @Expose()
+  @Type(() => Number)
+  port: number
+}
 
-  const loadedConfig = ClassyConfig.load(SimpleConfig, { transform: true })
-  t.true(loadedConfig instanceof SimpleConfig)
-  t.is(loadedConfig.decorated, true)
+Config.add({ port: '9999', host: '127.0.0.1' } as any, 'test')
+
+test('transform without options', (t) => {
+  const cfg = Config.load({ transform: true })
+
+  t.true(cfg instanceof Config)
+  t.is(cfg.port, 9999)
 })
 
-test('transform with class-transformer options', (t) => {
-  @Config()
-  class SimpleConfig {
-    @Default(1)
-    decorated: boolean
-  }
-
-  const loadedConfig = ClassyConfig.load(SimpleConfig, {
+test('transform with options', (t) => {
+  const cfg = Config.load({
     transform: true,
-    transformOptions: { enableImplicitConversion: true },
+    transformOptions: {
+      excludeExtraneousValues: true,
+    },
   })
-  t.true(loadedConfig instanceof SimpleConfig)
-  t.is(loadedConfig.decorated, true)
+
+  t.true(cfg instanceof Config)
+  t.is(cfg.port, 9999)
+  t.is(cfg['host'], undefined)
 })

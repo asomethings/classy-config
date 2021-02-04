@@ -1,50 +1,47 @@
 import test from 'ava'
-import { IsBoolean } from 'class-validator'
+import { IsIP, IsNumber } from 'class-validator'
 import 'reflect-metadata'
-import { ClassyConfig, Config, Default } from '../src'
-import { ValidationErrors } from '../src/errors'
+import { BaseConfig, ValidationErrors } from '../src'
 
-test('validate with class-validator', (t) => {
-  @Config()
-  class SimpleConfig {
-    @IsBoolean()
-    @Default(true)
-    decorated: boolean
-  }
+class Config extends BaseConfig {
+  @IsNumber()
+  port: number
 
-  const loadedConfig = ClassyConfig.load(SimpleConfig, { validate: true })
-  t.true(loadedConfig instanceof SimpleConfig)
-  t.is(loadedConfig.decorated, true)
+  @IsIP(4, { groups: ['with options'] })
+  host: string
+}
+
+test('successful validation without options', (t) => {
+  const env = 'successful validation'
+  Config.add({ port: 9999, host: '127.0.0.1' }, env)
+  const cfg = Config.load({ env, validate: true })
+
+  t.true(cfg instanceof Config)
+  t.is(cfg.port, 9999)
+  t.is(cfg.host, '127.0.0.1')
 })
 
-test('validate with class-validator options', (t) => {
-  @Config()
-  class SimpleConfig {
-    @IsBoolean({ groups: [] })
-    @Default('true')
-    decorated: boolean
-  }
-
-  const loadedConfig = ClassyConfig.load(SimpleConfig, {
-    validate: true,
-    validationOptions: { groups: ['test'] },
-  })
-  t.true(loadedConfig instanceof SimpleConfig)
-  t.is(loadedConfig.decorated, 'true')
+test('fail validation without options', (t) => {
+  const env = 'fail validation'
+  Config.add({ port: '9999' } as any, env)
+  t.throws(() => Config.load({ env, validate: true }), { instanceOf: ValidationErrors })
 })
 
-test('throws ValidationErrors', (t) => {
-  @Config()
-  class SimpleConfig {
-    @IsBoolean()
-    @Default('true')
-    decorated: boolean
-  }
+test('successful validation with options', (t) => {
+  const env = 'successful validation with options'
+  Config.add({ host: '127.0.0.1' }, env)
+  const cfg = Config.load({ env, validate: true, validationOptions: { groups: ['with options'] } })
 
-  const loadedConfig = () =>
-    ClassyConfig.load(SimpleConfig, {
-      validate: true,
-    })
+  t.true(cfg instanceof Config)
+  t.is(cfg.host, '127.0.0.1')
+})
 
-  t.throws(loadedConfig, { instanceOf: ValidationErrors })
+test('fail validation with options', (t) => {
+  const env = 'successful validation'
+  Config.add({ port: 9999, host: 'host' }, env)
+
+  t.throws(
+    () => Config.load({ env, validate: true, validationOptions: { groups: ['with options'] } }),
+    { instanceOf: ValidationErrors },
+  )
 })
